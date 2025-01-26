@@ -114,9 +114,12 @@ app_license = "mit"
 # ---------------
 # Override standard doctype classes
 
-# override_doctype_class = {
-# 	"ToDo": "custom_app.overrides.CustomToDo"
-# }
+override_doctype_class = {
+    "Stock Entry": "simple_manufacturing.overrides.stock_entry.CustomStockEntry",
+    "Purchase Receipt": "simple_manufacturing.overrides.purchase_receipt.CustomPurchaseReceipt",
+    "Purchase Invoice": "simple_manufacturing.overrides.purchase_invoice.CustomPurchaseInvoice",
+    "Sales Invoice": "simple_manufacturing.overrides.sales_invoice.CustomSalesInvoice",
+}
 
 # Document Events
 # ---------------

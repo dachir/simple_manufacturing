@@ -1,0 +1,167 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{YY}DES{MM}{#####}",
+ "creation": "2024-08-17 12:46:31.436872",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "date",
+  "column_break_apdy",
+  "company",
+  "branch",
+  "section_break_ipxp",
+  "warehouse_out",
+  "item_out",
+  "batch",
+  "no_pack",
+  "column_break_wrxj",
+  "warehouse_in",
+  "item_in",
+  "quantity",
+  "section_break_capz",
+  "packages",
+  "section_break_nz8u",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_nz8u",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Disassembly",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_wrxj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "batch",
+   "fieldtype": "Link",
+   "label": "Batch No",
+   "options": "Batch",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "batch.batch_qty",
+   "fieldname": "quantity",
+   "fieldtype": "Float",
+   "label": "Quantity",
+   "reqd": 1
+  },
+  {
+   "fieldname": "no_pack",
+   "fieldtype": "Int",
+   "label": "No Pack",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_capz",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fetch_from": "batch.item",
+   "fieldname": "item_out",
+   "fieldtype": "Link",
+   "label": "Item Out",
+   "options": "Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "item_in",
+   "fieldtype": "Link",
+   "label": "Item In",
+   "options": "Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "packages",
+   "fieldtype": "Table",
+   "label": "Package",
+   "options": "Disassembly Details"
+  },
+  {
+   "fieldname": "branch",
+   "fieldtype": "Link",
+   "label": "Branch",
+   "options": "Branch",
+   "reqd": 1
+  },
+  {
+   "fieldname": "warehouse_in",
+   "fieldtype": "Link",
+   "label": "Warehouse In",
+   "options": "Warehouse",
+   "reqd": 1
+  },
+  {
+   "fieldname": "warehouse_out",
+   "fieldtype": "Link",
+   "label": "Warehouse Out",
+   "options": "Warehouse",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_apdy",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_ipxp",
+   "fieldtype": "Section Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [
+  {
+   "link_doctype": "Stock Entry",
+   "link_fieldname": "custom_origin"
+  }
+ ],
+ "modified": "2024-08-21 18:19:43.190915",
+ "modified_by": "Administrator",
+ "module": "Simple Manufacturing",
+ "name": "Disassembly",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
