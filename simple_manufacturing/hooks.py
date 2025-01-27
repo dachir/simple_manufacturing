@@ -229,4 +229,9 @@ override_doctype_class = {
 # default_log_clearing_doctypes = {
 # 	"Logging DocType Name": 30  # days to retain logs
 # }
+fixtures = [
+    {"dt": "Custom Field", "filters": [["module", "=", "Simple Manufacturing"]]},
+    {"dt": "Client Script", "filters": [["enabled", "=", 1],["module", "=", "Simple Manufacturing"]]},
+    {"dt": "Server Script", "filters": [["disabled", "=", 0],["module", "=", "Simple Manufacturing"]]},
+]
 
