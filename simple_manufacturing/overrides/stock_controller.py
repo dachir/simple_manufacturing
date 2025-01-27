@@ -2,7 +2,7 @@ from erpnext.controllers.stock_controller import StockController
 
 class CustomStockController(StockController):
 
-    def update_bundle_details(self, bundle_details, table_name, row, is_rejected=False):
+	def update_bundle_details(self, bundle_details, table_name, row, is_rejected=False):
 		from erpnext.stock.doctype.serial_no.serial_no import get_serial_nos
 
 		frappe.throw("ok")
@@ -67,4 +67,4 @@ class CustomStockController(StockController):
 						"custom_alternate_qty": custom_alternate_qty,
 					}
 				)
-        
+		
