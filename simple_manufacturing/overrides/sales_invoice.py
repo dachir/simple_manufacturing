@@ -3,9 +3,9 @@ from erpnext.accounts.doctype.sales_invoice.sales_invoice import SalesInvoice
 import frappe
 from frappe.utils import cint, flt
 from erpnext.setup.doctype.company.company import update_company_current_month_sales
-from erpnext.accounts.doctype.pricing_rule.utils import (
-	update_coupon_code_count,
-)
+#from erpnext.accounts.doctype.pricing_rule.utils import (
+#	update_coupon_code_count,
+#)
 from erpnext.stock.get_item_details import get_bin_details, get_conversion_factor
 
 class CustomSalesInvoice(SalesInvoice):
@@ -69,8 +69,8 @@ class CustomSalesInvoice(SalesInvoice):
             self.update_project()
         update_linked_doc(self.doctype, self.name, self.inter_company_invoice_reference)
 
-        if self.coupon_code:
-            update_coupon_code_count(self.coupon_code, "used")
+        #if self.coupon_code:
+        #    update_coupon_code_count(self.coupon_code, "used")
 
         # create the loyalty point ledger entry if the customer is enrolled in any loyalty program
         if (
