@@ -14,7 +14,7 @@ def update_stock_ledger_entry(doc, method):
         )
 
         if child_entry and child_entry[0].custom_alternate_qty is not None:
-            custom_alternate_qty = child_entry[0].get("custom_alternate_qty")
+            custom_alternate_qty = child_entry[0].get("custom_alternate_qty") if doc.actual_qty > 0 else - child_entry[0].get("custom_alternate_qty")
             doc.custom_alternate_qty = custom_alternate_qty
             doc.db_set("custom_alternate_qty", custom_alternate_qty)
         

@@ -128,7 +128,7 @@ override_doctype_class = {
 
 doc_events = {
     "Stock Ledger Entry": {
-        "on_submit": "overrides.overrides.update_stock_ledger_entry",
+        "on_submit": "simple_manufacturing.overrides.overrides.update_stock_ledger_entry",
     },
 # 	"*": {
 # 		"on_update": "method",

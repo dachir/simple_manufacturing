@@ -1,3 +1,5 @@
+import frappe
+from frappe.utils import cint, flt
 from erpnext.stock.doctype.stock_entry.stock_entry import StockEntry
 
 class CustomStockEntry(StockEntry):
