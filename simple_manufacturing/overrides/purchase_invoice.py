@@ -10,13 +10,14 @@ from erpnext.accounts.doctype.sales_invoice.sales_invoice import (
 class CustomPurchaseInvoice(PurchaseInvoice):
 
     def before_save(self):
-        for i in self.items:
-            custom_use_second_unit = frappe.db.get_value('Item', i.item_code, 'custom_use_second_unit')
-            if cint(custom_use_second_unit) == 1:
-                if flt(i.custom_alternate_qty) <= 0.0:
-                    frappe.throw("Fill the alternative quantity!")
+        if self.update_stock == 1:
+            for i in self.items:
+                custom_use_second_unit = frappe.db.get_value('Item', i.item_code, 'custom_use_second_unit')
+                if cint(custom_use_second_unit) == 1:
+                    if flt(i.custom_alternate_qty) <= 0.0:
+                        frappe.throw("Fill the alternative quantity!")
 
-    def on_submit(self):
+    def zzzzon_submit(self):
         #super().on_submit()
 
         self.check_prev_docstatus()

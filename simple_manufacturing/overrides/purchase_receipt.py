@@ -14,7 +14,7 @@ class CustomPurchaseReceipt(PurchaseReceipt):
 
 
     # on submit
-    def on_submit(self):
+    def zzzzon_submit(self):
         #super().on_submit()
 
         # Check for Approving Authority

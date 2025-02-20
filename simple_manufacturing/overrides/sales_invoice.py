@@ -11,14 +11,15 @@ from erpnext.stock.get_item_details import get_bin_details, get_conversion_facto
 class CustomSalesInvoice(SalesInvoice):
 
     def before_save(self):
-        for i in self.items:
-            custom_use_second_unit = frappe.db.get_value('Item', i.item_code, 'custom_use_second_unit')
-            if cint(custom_use_second_unit) == 1:
-                if flt(i.custom_alternate_qty) <= 0.0:
-                    frappe.throw("Fill the alternative quantity!")
+        if self.update_stock == 1:
+            for i in self.items:
+                custom_use_second_unit = frappe.db.get_value('Item', i.item_code, 'custom_use_second_unit')
+                if cint(custom_use_second_unit) == 1:
+                    if flt(i.custom_alternate_qty) <= 0.0:
+                        frappe.throw("Fill the alternative quantity!")
 
     
-    def on_submit(self):
+    def zzzzon_submit(self):
         self.validate_pos_paid_amount()
 
         if not self.auto_repeat:

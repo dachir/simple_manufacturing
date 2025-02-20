@@ -4,6 +4,7 @@ app_publisher = "Kossivi Amouzou"
 app_description = "Simple Manufacturing"
 app_email = "dodziamouzou@gmail.com"
 app_license = "mit"
+
 # required_apps = []
 
 # Includes in <head>
@@ -125,13 +126,16 @@ override_doctype_class = {
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
+doc_events = {
+    "Stock Ledger Entry": {
+        "on_submit": "overrides.overrides.update_stock_ledger_entry",
+    },
 # 	"*": {
 # 		"on_update": "method",
 # 		"on_cancel": "method",
 # 		"on_trash": "method"
 # 	}
-# }
+}
 
 # Scheduled Tasks
 # ---------------
