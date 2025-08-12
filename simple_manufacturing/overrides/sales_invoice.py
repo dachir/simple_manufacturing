@@ -17,10 +17,10 @@ class CustomSalesInvoice(SalesInvoice):
                 if cint(custom_use_second_unit) == 1:
                     if i.is_return == 0:
                         if flt(i.custom_alternate_qty) <= 0.0:
-                            frappe.throw("Fill the alternative quantity!")
+                            frappe.throw("Alternative quantity should be greater than 0!")
                     else:
                         if flt(i.custom_alternate_qty) >= 0.0:
-                            frappe.throw("Fill the alternative quantity!")
+                            frappe.throw("Alternative quantity should be lower than 0!")
 
     
     def zzzzon_submit(self):
