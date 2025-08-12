@@ -15,8 +15,12 @@ class CustomSalesInvoice(SalesInvoice):
             for i in self.items:
                 custom_use_second_unit = frappe.db.get_value('Item', i.item_code, 'custom_use_second_unit')
                 if cint(custom_use_second_unit) == 1:
-                    if flt(i.custom_alternate_qty) <= 0.0:
-                        frappe.throw("Fill the alternative quantity!")
+                    if i.is_return == 0:
+                        if flt(i.custom_alternate_qty) <= 0.0:
+                            frappe.throw("Fill the alternative quantity!")
+                    else:
+                        if flt(i.custom_alternate_qty) >= 0.0:
+                            frappe.throw("Fill the alternative quantity!")
 
     
     def zzzzon_submit(self):
