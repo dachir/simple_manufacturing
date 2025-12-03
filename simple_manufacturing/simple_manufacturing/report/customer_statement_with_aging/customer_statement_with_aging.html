@@ -1,0 +1,190 @@
+<style>
+    .statement-container {
+        font-family: "Helvetica", "Arial", sans-serif;
+        font-size: 12px;
+        color: #333;
+    }
+
+    .header-box {
+        border: 1px solid #ddd;
+        padding: 12px;
+        border-radius: 6px;
+        background: #fafafa;
+        margin-bottom: 15px;
+    }
+
+    h2.title {
+        text-align: center;
+        margin-bottom: 10px;
+        font-size: 20px;
+        font-weight: bold;
+        letter-spacing: 0.5px;
+    }
+
+    table.statement {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+        font-size: 11px;
+    }
+
+    table.statement th {
+        background: #f0f2f5;
+        border: 1px solid #ccc;
+        padding: 6px;
+        text-align: center;
+        font-weight: 600;
+        color: #222;
+    }
+
+    table.statement td {
+        border: 1px solid #ddd;
+        padding: 5px;
+    }
+
+    table.statement tr:nth-child(even) {
+        background: #fafafa;
+    }
+
+    .right {
+        text-align: right;
+    }
+
+    .center {
+        text-align: center;
+    }
+
+    .section-title {
+        margin-top: 25px;
+        margin-bottom: 6px;
+        font-size: 14px;
+        font-weight: bold;
+        color: #222;
+        border-bottom: 2px solid #555;
+        padding-bottom: 3px;
+    }
+
+    .summary-table td {
+        padding: 4px;
+        font-size: 11px;
+    }
+
+    .aging-box {
+        padding: 10px;
+        background: #fdfdfd;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        margin-top: 10px;
+        font-size: 11px;
+    }
+
+    .footer-note {
+        text-align: right;
+        margin-top: 20px;
+        font-size: 10px;
+        color: #666;
+    }
+</style>
+
+<div class="statement-container">
+
+    <h2 class="title">Customer Statement</h2>
+
+    <div class="header-box">
+        <b>Customer:</b> {%= filters.customer %} <br>
+        <b>Company:</b> {%= filters.company %} <br>
+        <b>Period:</b> {%= filters.from_date %} to {%= filters.to_date %} <br>
+        <b>Generated On:</b> {%= frappe.datetime.get_today() %}
+    </div>
+
+    <!-- ================== CURRENT PERIOD ================== -->
+
+{% var has_current = false; %}
+{% for (var i = 0; i < data.length; i++) { %}
+    {% if (data[i].post_date && data[i].post_date >= filters.from_date) { %}
+        {% has_current = true; %}
+        {% break; %}
+    {% } %}
+{% } %}
+
+{% if (has_current) { %}
+<div class="section-title">Current Period</div>
+
+<table class="statement">
+    <tr>
+        <th>Document</th>
+        <th>BP Ref</th>
+        <th>Posting Date</th>
+        <th>Due Date</th>
+        <th>Details</th>
+        <th>Amount</th>
+        <th>Balance</th>
+    </tr>
+
+    {% for (var i = 0; i < data.length; i++) { %}
+        {% if (data[i].post_date && data[i].post_date >= filters.from_date) { %}
+        <tr>
+            <td>{%= data[i].document %}</td>
+            <td>{%= data[i].bp_ref || "" %}</td>
+            <td>{%= data[i].post_date %}</td>
+            <td>{%= data[i].due_date %}</td>
+            <td>{%= data[i].details %}</td>
+            <td class="right">{%= format_currency(data[i].amount, "USD") %}</td>
+            <td class="right">{%= format_currency(data[i].balance, "USD") %}</td>
+        </tr>
+        {% } %}
+    {% } %}
+</table>
+{% } %}
+
+    <!-- ================== TOTALS ================== -->
+    <div class="section-title">Totals</div>
+
+    <table class="statement summary-table">
+        {% for (var i=0; i<data.length; i++) { %}
+            {% if (data[i].document == "Total") { %}
+                <tr>
+                    <td><b>Total Amount</b></td>
+                    <td class="right"><b>{%= format_currency(data[i].amount, "USD") %}</b></td>
+                </tr>
+                <tr>
+                    <td><b>Closing Balance</b></td>
+                    <td class="right"><b>{%= format_currency(data[i].balance, "USD") %}</b></td>
+                </tr>
+            {% } %}
+        {% } %}
+    </table>
+
+   <!-- ================== AGING SUMMARY ================== -->
+<div class="section-title">Aging Summary</div>
+
+<table class="statement">
+    <tr>
+        <th>0 - 30</th>
+        <th>31 - 60</th>
+        <th>61 - 90</th>
+        <th>90 - 120</th>
+        <th>120+</th>
+    </tr>
+
+    {% for (var i = 0; i < data.length; i++) { %}
+        {% if (data[i].document == "Aging Summary") { %}
+            {% 
+                var parts = data[i].details.split("|");
+                var v0 = parts[0].split(":")[1].trim();
+                var v1 = parts[1].split(":")[1].trim();
+                var v2 = parts[2].split(":")[1].trim();
+                var v3 = parts[3].split(":")[1].trim();
+                var v4 = parts[4].split(":")[1].trim();
+            %}
+
+            <tr>
+                <td class="center">{%= format_currency(v0, "USD") %}</td>
+                <td class="center">{%= format_currency(v1, "USD") %}</td>
+                <td class="center">{%= format_currency(v2, "USD") %}</td>
+                <td class="center">{%= format_currency(v3, "USD") %}</td>
+                <td class="center">{%= format_currency(v4, "USD") %}</td>
+            </tr>
+        {% } %}
+    {% } %}
+</table>
